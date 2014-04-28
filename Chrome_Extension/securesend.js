@@ -1,0 +1,2 @@
+// test script
+alert("hi");

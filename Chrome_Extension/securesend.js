@@ -1,7 +1,8 @@
 // test script
 
-function insertUI(event) {
-  alert(event);
+function insertUI() {
+  var composeDivs = $(".n1tfz");
+  //alert(composeDivs);
 }
 
 var insertListener = function(event){

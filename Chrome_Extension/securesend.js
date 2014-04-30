@@ -20,7 +20,12 @@ function insertUI() {
                   "<td style='width:80px'>" +
                     "<div class='ss-encrypt-button'>Send Secure</div>" +
                   "</td>" +
-                  "<td></td>" +
+                  "<td><div class='Uz'></div></td>" +
+                  "<td>" +
+                    "<div class='ss-encrypt-info'>"+
+                      "Use recipient's public key to encrypt message" +
+                    "</div>" +
+                  "</td>" +
                 "</tr>" +
               "</tbody>" +
             "</table>" +

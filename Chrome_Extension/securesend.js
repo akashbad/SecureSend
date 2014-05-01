@@ -1,10 +1,39 @@
 function encrypt(event){
-  $button = $(event.target);
+  var recipient = getRecipient(event);
+  var contents = getContents(event);
+  alert("Got recipient: " + recipient);
+  alert("Got contents: " + contents.msg);
+  var encrypted = rsa_encrypt(recipient, contents.msg);
+  writeContents(contents.g_editable, encrypted);
+  //TODO Akash: click the send button
+}
+  
+function decrypt(event){
 }
 
-function decrypt(event){
-  
+function getRecipient(event) {
+  return $(event.currentTarget).parents().find('[email]').last().attr("email");
 }
+
+function getContents(event) {
+  var msg;
+  var g_editable = $(event.currentTarget).parents().find('[g_editable]').first();
+  msg = g_editable.html().replace(/(<div>)/g,'\n');
+  msg = msg.replace(/(<\/div>)/g,'');
+  return {g_editable: g_editable, msg: msg};
+}
+
+function writeContents(g_editable, message) {
+  message = message.split('\n').join('<br/>');
+  g_editable.html(message);
+}
+
+function rsa_encrypt(recipient, content) {
+  //TODO Vikas: get the recipient's public key from the server
+  // and encrypt that shit using some algorithms!
+  return "This message is just a fake because Vikas didn't encrypt shit!";
+}
+
 
 function insertUI() {
   var composeDivs = $(".n1tfz");

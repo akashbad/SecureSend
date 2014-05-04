@@ -1,5 +1,5 @@
 function encrypt(event){
-  var recipient = getRecipient(event);
+  var recipient = getContentRecipient(event);
   var contents = getContents(event);
   alert("Got recipient: " + recipient);
   alert("Got contents: " + contents.msg);
@@ -9,9 +9,29 @@ function encrypt(event){
 }
   
 function decrypt(event){
+  $password = $(event.currentTarget).parent().find(".ss-decrypt-input");
+  if($password.val() && $password.val().length > 0){
+    $password.css({"border": "1px solid #dcdcdc"});
+    var recipient = getMessageRecipient(event);
+    var message = getMessage(event);
+    alert("Got recipient: " + recipient);
+    alert("Got message: " + message.msg);
+    var decrypted = rsa_decrypt(recipient, message.msg, $password.val());
+    $(message.message_box.html(decrypted.replace(/\n/g,"<br>")));
+  }
+  else {
+    $password.focus();
+    $password.css({"border": "1px solid #dd4b39"});
+  }
 }
 
-function getRecipient(event) {
+function decrypt_key(event){
+  if(event.keyCode == 13){
+    decrypt(event);
+  }
+}
+
+function getContentRecipient(event) {
   return $(event.currentTarget).parents().find('[email]').last().attr("email");
 }
 
@@ -28,12 +48,27 @@ function writeContents(g_editable, message) {
   g_editable.html(message);
 }
 
+function getMessage(event){
+  var $message_box = $(event.currentTarget).closest("div[class='gs']").find("[class*='ii gt'] div").first();
+  return {message_box: $message_box, msg: $message_box.html().replace(/<(.*?)>/g,'')};
+}
+
+function getMessageRecipient(event){
+  return $(event.currentTarget).parents('div[class="gE iv gt"]').find("span [email]").attr("email")
+}
+
 function rsa_encrypt(recipient, content) {
   //TODO Vikas: get the recipient's public key from the server
-  // and encrypt that shit using some algorithms!
+  // and encrypt that shit using some algorithms! return the encrypted text
   return "This message is just a fake because Vikas didn't encrypt shit!";
 }
 
+function rsa_decrypt(recipient, content, password){
+  //TODO Vikas: use the recipient's email & password to get the
+  // plaintext secret key and decrypt the content here
+  // return the decrypted content
+  return "This message is also fake because Vikas can't decrypt either!";
+}
 
 function insertUI() {
   var composeDivs = $(".n1tfz");
@@ -69,7 +104,9 @@ function insertUI() {
     messageButtonBar.each(function(){
       if($(this).find(".ss-decrypt-button").length === 0){
         $(this).prepend("<div class='ss-decrypt-button'>Decrypt</div>");
+        $(this).append("<input class='ss-decrypt-input' type='password' placeholder='Decryption Password'/>");
         $(this).find(".ss-decrypt-button").click(decrypt);
+        $(this).find(".ss-decrypt-input").keyup(decrypt_key);
       }
     });
   }

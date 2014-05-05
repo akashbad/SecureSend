@@ -1,5 +1,6 @@
 import os
 from flask import Flask, request, jsonify
+from flask_cors import cross_origin
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -22,6 +23,7 @@ def hello_world():
 	return "Secure Send."
 
 @app.route('/register', methods=['POST'])
+@cross_origin(headers=['Content-Type'])
 def register():
 	data = request.get_json(force=True)
 	entry = db.session.query(Entry).filter(Entry.email == data['email']).first()
@@ -40,6 +42,7 @@ def register():
 	return jsonify(result)
 
 @app.route('/pk', methods=['GET'])
+@cross_origin()
 def get_pk():
 	target_email = request.args.get('email')
 	entry = db.session.query(Entry).filter(Entry.email == target_email).first()
@@ -52,6 +55,7 @@ def get_pk():
 	return jsonify(result)
 
 @app.route('/sk_pad', methods=['GET'])
+@cross_origin()
 def get_sk_pad():
 	target_email = request.args.get('email')
 	entry = db.session.query(Entry).filter(Entry.email == target_email).first()

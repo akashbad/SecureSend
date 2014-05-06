@@ -9,7 +9,9 @@
     {
       "matches": ["https://mail.google.com/*", "http://mail.google.com/*"],
       "js": ["jquery.js", "securesend.js"],
-      "css":["securesend.css"]  
+      "css":["securesend.css"]
     }
-  ]
+  ],
+
+  "options_page": "options.html"
 }

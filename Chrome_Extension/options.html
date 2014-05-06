@@ -1,0 +1,31 @@
+<!Doctype html>
+
+<html>
+  <script src="jquery.js"></script>
+  <script src="openpgp.min.js"></script>
+  <script src="options.js"></script>
+  <body>
+    <div>
+      <b>Paste OpenPGP keys below</b> OR
+      <button id="generate">Generate Keys (This will take a moment)</button>
+      <input id="key_size" type="hidden" value="1024"/>
+      <input id="passphrase" type="password"/>
+    <div>
+
+    <div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" type="text"/>
+      </div>
+      <div>
+        <label for="pk">Public Key</label>
+        <input id="public_key" type="text"/>
+      </div>
+      <div>
+        <label for="sk_pad">Private Key</label>
+        <input id="private_key" type="text"/>
+      </div>
+      <button id="register">Register</button>
+    </div>
+  </body>
+</html>

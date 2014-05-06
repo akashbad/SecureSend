@@ -7,7 +7,7 @@ function encrypt(event){
   writeContents(contents.g_editable, encrypted);
   //TODO Akash: click the send button
 }
-  
+
 function decrypt(event){
   $password = $(event.currentTarget).parent().find(".ss-decrypt-input");
   if($password.val() && $password.val().length > 0){
@@ -59,15 +59,62 @@ function getMessageRecipient(event){
 
 function rsa_encrypt(recipient, content) {
   //TODO Vikas: get the recipient's public key from the server
-  // and encrypt that shit using some algorithms! return the encrypted text
-  return "This message is just a fake because Vikas didn't encrypt shit!";
+  // and encrypt that shit using some algorithms!
+
+  var armoredKey;
+
+  // request public key from server
+  $.ajax({
+    url: 'http://peaceful-ocean-5864.herokuapp.com/pk',
+    data: {
+      email: recipient,
+    },
+    async: false,
+  }).done(function(data) {
+    if (data['success']) {
+      armoredKey = data['pk'];
+    }
+  }).fail(function() {
+    //TODO update DOM to indicate public key was not retrieved
+    return content;
+  })
+
+  var publicKey = openpgp.key.readArmored(armoredKey);
+  var ciphertext = openpgp.encryptMessage(publicKey.keys, content);
+  console.log(ciphertext);
+
+  return ciphertext;
 }
 
-function rsa_decrypt(recipient, content, password){
-  //TODO Vikas: use the recipient's email & password to get the
-  // plaintext secret key and decrypt the content here
-  // return the decrypted content
-  return "This message is also fake because Vikas can't decrypt either!";
+function rsa_decrypt(recipient, content, passphrase){
+  var armoredKey;
+
+  // request public key from server
+  $.ajax({
+    url: 'http://peaceful-ocean-5864.herokuapp.com/sk_pad',
+    data: {
+      email: recipient,
+    },
+    async: false,
+  }).done(function(data) {
+    if (data['success']) {
+      armoredKey = data['sk_pad'];
+      console.log(armoredKey);
+    }
+  }).fail(function() {
+    //TODO update DOM to indicate public key was not retrieved
+    return content;
+  })
+
+  var privateKey = openpgp.key.readArmored(armoredKey)['keys'][0];
+  if (!privateKey.decrypt(passphrase)) {
+    // TODO decryption failed message
+    console.log("wrong passphrase")
+  }
+
+  var messageObj = openpgp.message.readArmored(content);
+  var message = openpgp.decryptMessage(privateKey, messageObj);
+  return message
 }
 
 function insertUI() {
@@ -76,11 +123,11 @@ function insertUI() {
     composeDivs.each(function(){
       var composeMenu = $(this).parent().parent().parent().parent();
       if(composeMenu && composeMenu.length > 0 && composeMenu.find(".ss-encrypt-form").length === 0) {
-        var ssEncryptForm = 
+        var ssEncryptForm =
           "<div class='ss-encrypt-form'>" +
             "<table style='width:100%'>" +
               "<tbody>" +
-                "<tr>" + 
+                "<tr>" +
                   "<td style='width:80px'>" +
                     "<div class='ss-encrypt-button'>Send Secure</div>" +
                   "</td>" +
@@ -95,7 +142,7 @@ function insertUI() {
             "</table>" +
           "</div>";
         composeMenu.append(ssEncryptForm);
-        composeMenu.find(".ss-encrypt-button").click(encrypt); 
+        composeMenu.find(".ss-encrypt-button").click(encrypt);
       }
     });
   }
@@ -119,4 +166,3 @@ var insertListener = function(event){
 }
 
 document.addEventListener("webkitAnimationStart", insertListener, false);
-

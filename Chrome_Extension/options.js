@@ -23,6 +23,8 @@ window.onload = function() {
 
     var keys = openpgp.generateKeyPair(1, key_size, email, passphrase);
 
+    console.log(keys['privateKeyArmored']);
+
     $('#private_key').val(keys['privateKeyArmored']);
     $('#public_key').val(keys['publicKeyArmored']);
   }

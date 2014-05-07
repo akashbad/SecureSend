@@ -1,11 +1,10 @@
 function encrypt(event){
   var recipient = getContentRecipient(event);
   var contents = getContents(event);
-  alert("Got recipient: " + recipient);
-  alert("Got contents: " + contents.msg);
+//  alert("Got recipient: " + recipient);
+//  alert("Got contents: " + contents.msg);
   var encrypted = rsa_encrypt(recipient, contents.msg);
   writeContents(contents.g_editable, encrypted);
-  //TODO Akash: click the send button
 }
 
 function decrypt(event){
@@ -14,8 +13,8 @@ function decrypt(event){
     $password.css({"border": "1px solid #dcdcdc"});
     var recipient = getMessageRecipient(event);
     var message = getMessage(event);
-    alert("Got recipient: " + recipient);
-    alert("Got message: " + message.msg);
+//    alert("Got recipient: " + recipient);
+//    alert("Got message: " + message.msg);
     var decrypted = rsa_decrypt(recipient, message.msg, $password.val());
     $(message.message_box.html(decrypted.replace(/\n/g,"<br>")));
   }

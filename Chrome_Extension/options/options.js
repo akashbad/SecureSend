@@ -11,7 +11,7 @@ window.onload = function() {
       type: 'json'
     }).done(function(data) {
       if (data["success"]) {
-        alert("Some message letting me know of my successful key upload");
+        $(".container").html("<h3 style='text-align:center;'>Success!<h3>");
       }
     });
   };
@@ -23,12 +23,21 @@ window.onload = function() {
 
     var keys = openpgp.generateKeyPair(1, key_size, email, passphrase);
 
-    console.log(keys['privateKeyArmored']);
-
     $('#private_key').val(keys['privateKeyArmored']);
     $('#public_key').val(keys['publicKeyArmored']);
+    reveal(); 
   }
 
+  var reveal = function () {
+    $("#key-container").slideDown("slow");
+  }
+  
+  $('#passphrase').keyup(function (event) {
+    if(event.keyCode == 13) {
+      $("#generate").click();
+    }
+  });
+  $('#self-generate').click(reveal);
   $('#register').click(register);
   $('#generate').click(generate_keys);
 };

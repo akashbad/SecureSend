@@ -4,25 +4,25 @@
   <script src="../lib/jquery.js"></script>
   <script src="../lib/openpgp.min.js"></script>
   <script src="options.js"></script>
+  <link href="options.css" rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
   <body>
     <div class="container">
       <div class="logo">Send Secure</div>
       <div class="register-form">
         <input id="email" type="text" placeholder="Email" />
         <input id="passphrase" type="password" placeholder="Decryption Password" />
-        <div id="generate">Generate Keys</div>
-        <div class="self-generate">Or paste your own...</div>
+        <div id="generate" class="button">Generate Keys</div>
+        <div id="self-generate">Or paste your own...</div>
       </div>
-      <input id="key_size" type="hidden" value="1024"/>
-      <div class="key-container">
+      <div id="key-container">
+        <input id="key_size" type="hidden" value="1024"/>
         <h3>Public Key</h3>
         <textarea id="public_key"></textarea>
-      </div>
-      <div class="key-container">
         <h3>Private Key</h3>
         <textarea id="private_key"></textarea>
+        <div id="register" class="button">Register</div>
       </div>
-      <div id="register">Register</div>
     </div>
   </body>
 </html>

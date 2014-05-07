@@ -1,0 +1,102 @@
+body {
+  font-family: arial, sans-serif;
+}
+
+.container {
+  width: 500px;
+  margin: 40px auto;
+  background: #f1f1f1;
+  border: solid 1px #ccc;
+  padding: 20px;
+}
+.button {
+  text-align: center;
+  background-color: rgb(0, 154, 87);
+  background-image: -webkit-linear-gradient(top, rgb(10, 164, 97), rgb(0, 145, 76));
+  color: rgb(255, 255, 255);
+  border: 1px solid transparent;
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  padding: 0px 9px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: bold;
+  white-space: nowrap;
+  margin: 10px auto;
+  height: 35px;
+  line-height: 35px;
+  font-size: 15px;
+  width: 130px;
+}
+
+.register-form {
+  padding: 15px 15px 0px;
+}
+
+input {
+  width: 448px;
+  margin: 5px auto;
+  border-radius: 2px;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.0980392);
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  padding: 5px 10px;
+  color: rgb(110, 110, 110);
+  line-height: 27px;
+  font-size: 15px;
+}
+
+.logo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 48px;
+  margin: auto;
+  text-align: center;
+  border-bottom: solid 1px #ccc;
+}
+
+#self-generate {
+  text-align: center;
+  margin: auto;
+  font-size: 11px;
+  color: #aaa;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#key-container {
+  padding: 0px 15px;
+  display: none;
+}
+
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  color: #333;
+  margin: 10px 0px;
+}
+
+textarea {
+  width: 448px;
+  margin: 5px auto;
+  border-radius: 2px;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.0980392);
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  padding: 5px 10px;
+  color: rgb(110, 110, 110);
+  line-height: 11px;
+  font-size: 11px;
+  resize: none;
+  height: 100px;
+}

@@ -5,27 +5,24 @@
   <script src="../lib/openpgp.min.js"></script>
   <script src="options.js"></script>
   <body>
-    <div>
-      <b>Paste OpenPGP keys below</b> OR
-      <button id="generate">Generate Keys (This will take a moment)</button>
-      <input id="key_size" type="hidden" value="1024"/>
-      <input id="passphrase" type="password"/>
-    <div>
-
-    <div>
-      <div>
-        <h3>Email</h3>
-        <input id="email" type="text"/>
+    <div class="container">
+      <div class="logo">Send Secure</div>
+      <div class="register-form">
+        <input id="email" type="text" placeholder="Email" />
+        <input id="passphrase" type="password" placeholder="Decryption Password" />
+        <div id="generate">Generate Keys</div>
+        <div class="self-generate">Or paste your own...</div>
       </div>
-      <div>
+      <input id="key_size" type="hidden" value="1024"/>
+      <div class="key-container">
         <h3>Public Key</h3>
         <textarea id="public_key"></textarea>
       </div>
-      <div>
+      <div class="key-container">
         <h3>Private Key</h3>
         <textarea id="private_key"></textarea>
       </div>
-      <button id="register">Register</button>
+      <div id="register">Register</div>
     </div>
   </body>
 </html>

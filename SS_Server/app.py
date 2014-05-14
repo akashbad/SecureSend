@@ -11,7 +11,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
-EMAIL_CONFIRMATION_ON = False  # TODO, turn on for prod
+EMAIL_CONFIRMATION_ON = True  # TODO, turn on for prod
 
 def gen_random_token():
 	seed = random.SystemRandom()
@@ -84,18 +84,21 @@ def confirm_registration():
 	sk_pad = request.args.get('sk_pad')
 	verification_token = request.args.get('verification_token')
 	entry = db.session.query(Entry).filter(Entry.email == email).first()
-	result = {}
+	success = None
 	if not entry:
-		result['success'] = False
+		success = False
 	elif entry.verification_token_hash != hashlib.sha256(verification_token).hexdigest():
-		result['success'] = False
+		success = False
 	else:
 		entry.pk = pk
 		entry.sk_pad = sk_pad
 		entry.verified = True
 		db.session.commit()
-		result['success'] = True
-	return jsonify(result)
+		success = True
+	if success:
+		return "SendSecure confirmation complete!"
+	else:
+		return "SendSecure confirmation failed. Please try again."
 
 @app.route('/pk', methods=['GET'])
 @cross_origin()

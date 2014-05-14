@@ -5,6 +5,7 @@ function encrypt(event){
 //  alert("Got contents: " + contents.msg);
   var encrypted = rsa_encrypt(recipient, contents.msg);
   writeContents(contents.g_editable, encrypted);
+  $("td[class='gU Up'] > div > [role='button']").click();
 }
 
 function decrypt(event){
@@ -57,9 +58,6 @@ function getMessageRecipient(event){
 }
 
 function rsa_encrypt(recipient, content) {
-  //TODO Vikas: get the recipient's public key from the server
-  // and encrypt that shit using some algorithms!
-
   var armoredKey;
 
   // request public key from server
